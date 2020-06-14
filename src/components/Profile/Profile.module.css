@@ -1,0 +1,8 @@
+.content {
+  grid-area: c;
+}
+
+.backPic {
+  width: 400px;
+  height: auto;
+}

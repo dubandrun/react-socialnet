@@ -1,0 +1,28 @@
+.nav {
+  grid-area: n;
+  background: coral;
+  padding: 20px;
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  color: white;
+}
+
+.menuLink {
+  margin: 0;
+  text-decoration: none;
+}
+
+.menuLink:visited {
+  color: white;
+}
+
+.menuLink.activeLink {
+  color: gold;
+}
