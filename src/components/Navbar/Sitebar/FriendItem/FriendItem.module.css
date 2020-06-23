@@ -1,0 +1,14 @@
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
+
+.name {
+  margin: 0;
+}
+
+.friendItem {
+  width: 70px;
+  text-align: center;
+}

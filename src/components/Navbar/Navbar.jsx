@@ -1,10 +1,11 @@
 import React from 'react';
 import classes from './Navbar.module.css'
 import { NavLink } from 'react-router-dom';
+import Sitebar from './Sitebar/Sitebar';
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
-    <nav className={classes.nav}>
+      <nav className={classes.nav}>
         <ul className={classes.menu}>
           <li className={classes.link}><NavLink className={classes.menuLink} activeClassName={classes.activeLink} to='/profile'>Profile</NavLink></li>
           <li className={classes.link}><NavLink className={classes.menuLink} activeClassName={classes.activeLink} to='/dialogs'>Messages</NavLink></li>
@@ -12,7 +13,11 @@ const Navbar = () => {
           <li className={classes.link}><NavLink className={classes.menuLink} activeClassName={classes.activeLink} to='/music'>Music</NavLink></li>
           <li className={classes.link}><NavLink className={classes.menuLink} activeClassName={classes.activeLink} to='/settings'>Settings</NavLink></li>
         </ul>
-    </nav>
+
+        <Sitebar state={props.state}/>
+      </nav>
+
+      
   )
 }
 
