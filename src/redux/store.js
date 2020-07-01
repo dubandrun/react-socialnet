@@ -60,12 +60,13 @@ let store = {
   },
 
   dispatch(action) {
+  //каждый редьюсер возвращает обновлённый state, и здесь мы записываем эти новые полученные значения в state
     this._state.profilePage = profileReducer(this._state.profilePage, action)
 
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
 
     this._state.sidebar = sidebarReducer(this._state.sidebar, action)
-
+//перерисовываем страницу
     this._callSubscriber(this._state)
     
   }
