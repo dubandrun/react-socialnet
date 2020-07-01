@@ -8,6 +8,7 @@ const Posts = (props) => {
     (post) => <Post 
       message={post.text} 
       likes={post.likesCount}
+      key={post.id}
     />
     )
 

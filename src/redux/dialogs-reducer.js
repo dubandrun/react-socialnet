@@ -40,20 +40,25 @@ let initialState = {
 const dialogsReducer = (state = initialState, action) => {
 
   switch(action.type) {
-
+   
     case UPDATE_NEW_MESSAGE_BODY: {
-      let stateCopy = {...state}
-      stateCopy.newMessageBody = action.body
-      return stateCopy
+      //копируем стейт и делаем в копии изменения
+      return {
+        ...state,
+        newMessageBody: action.body
+      }
     }
+
     case SEND_MESSAGE: {
-      let stateCopy = {...state}
-      stateCopy.messagesData = [...state.messagesData]
       let body = state.newMessageBody
-      stateCopy.newMessageBody = ''
-      stateCopy.messagesData.push({ id: 6, text: body })
-      return stateCopy
+      return {
+        ...state,
+        newMessageBody: '',
+        //добавление объекта через запятую будет эквивалентно .push({ id: 6, text: body }
+        messagesData: [...state.messagesData, { id: 6, text: body }]
+      }
     }
+
     default:
       return state
   }

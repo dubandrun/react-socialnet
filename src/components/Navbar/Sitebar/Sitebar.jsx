@@ -4,7 +4,7 @@ import FriendItem from './FriendItem/FriendItem';
 
 const Sitebar = (props) => {
 let friend = props.state.slice(0, 3).map(
-  element => <FriendItem name={element.name} avatar={element.avatar}/>
+  element => <FriendItem name={element.name} avatar={element.avatar} key={element.id}/>
 )
 
   return (
