@@ -1,42 +1,73 @@
 
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET-USERS-TOTAL-COUNT'
+const TOGGLE_IS_LOADING = 'TOGGLE-IS-LOADING'
 
 //state для инициализации, чтобы у редьюсера были данные
 let initialState = {
-  postsData: [
-    { id: 1, text: "Yo", likesCount: 2 },
-    { id: 2, text: "Yo", likesCount: 1 },
-  ],
-  newPostText: '',
+  users: [],
+  pageSize: 10,
+  totalUsersCount: 0,
+  currentPage: 1,
+  isLoading: false
 }
 
-const profileReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
 
   switch(action.type) {
 
-    case ADD_POST: {
-      let newPost = {
-        id: 5,
-        text: state.newPostText,
-        likesCount: 12,
-      }
-       //делаем глубокое копирование, т.к. мы изменяем массив postData
-      //далее делаем копию массива! а не объекта
+    case SET_USERS: {
       return {
         ...state,
-        postsData: [...state.postsData, newPost],
-        newPostText: ''
+        users: action.users
+      }
+    }
+
+    case SET_USERS_TOTAL_COUNT: {
+      return {
+        ...state,
+        totalUsersCount: action.totalCount
+      }
+    }
+
+    case FOLLOW: {
+      return {
+        ...state,
+        users: state.users.map( user => {
+          if (user.id === action.userId) {
+            return {...user, following: true}
+          }
+          return user
+        })
       }
     }
     
-    case UPDATE_NEW_POST_TEXT: {
-      //не делаем глубокое копирование, т.к. мы изменяем только примитив(строку), массивы и т.д. не трогаем, поэтому нет необходимости
+    case UNFOLLOW: {
       return {
         ...state,
-        newPostText: action.newText
+        users: state.users.map( user => {
+          if (user.id === action.userId) {
+            return {...user, following: false}
+          }
+          return user
+        })
       }
     }  
+
+    case SET_CURRENT_PAGE: {
+      return {
+        ...state, currentPage: action.currentPage
+      }
+    }
+
+    case TOGGLE_IS_LOADING: {
+      return {
+        ...state, isLoading: action.toggle
+      }
+    }
 
     default:
       return state
@@ -44,13 +75,34 @@ const profileReducer = (state = initialState, action) => {
 }
 
 // action creators
-export const addPostActionCreator = () => ({
-  type: ADD_POST
+export const follow = (userID) => ({
+  type: FOLLOW,
+  userId: userID
 })
 
-export const updateNewPostTextActionCreator = (text) => ({
-  type: UPDATE_NEW_POST_TEXT, 
-  newText: text
+export const unfollow = (userID) => ({
+  type: UNFOLLOW,
+  userId: userID
 })
 
-export default profileReducer
+export const setUsersTotalCount = (totalCount) => ({
+  type: SET_USERS_TOTAL_COUNT,
+  totalCount
+})
+
+export const setUsers = (users) => ({
+  type: SET_USERS,
+  users: users
+})
+
+export const setCurrentPage = (currentPage) => ({
+  type: SET_CURRENT_PAGE,
+  currentPage
+})
+
+export const setPreloader = (toggle) => ({
+  type: TOGGLE_IS_LOADING,
+  toggle
+})
+
+export default usersReducer
