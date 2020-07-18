@@ -100,10 +100,8 @@ let mapDispatchToProps = {
   setUsersTotalCount, 
   setPreloader
 }
-//упрощенная передача диспатча
+//упрощенная передача диспатча + сделал через константу для наглядности
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
-
-
 
 
 
