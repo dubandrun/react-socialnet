@@ -1,45 +1,29 @@
 import React from "react";
 import { connect } from 'react-redux'
 
-import * as axios from 'axios'
-
 import { 
-  follow, 
-  unfollow, 
-  setUsers, 
   setCurrentPage,
-  setUsersTotalCount,
-  setPreloader
+  getUsersThunkCreator,
+  unfollowThunkCreator,
+  followThunkCreator
 } from '../../redux/users-reducer';
 
 import Users from './Users'
 
 import Preloader from "../common/Preloader/Preloader";
 
+
 // 2 контейнерные компоненты - одна с коннектом общая для общения со стором, 2ая для обертки Users(чтобы отделить аякс-запрос)
 class UsersContainer extends React.Component {
   // если кроме пропсов никаких данных не приходит, конструктор создавать не обязательно с super(props), т.к. это делается автоматически
   
     componentDidMount() {
-      this.props.setPreloader(true)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then(res => {
-        this.props.setPreloader(false)
-        return (
-          this.props.setUsers(res.data.items),
-          this.props.setUsersTotalCount(res.data.totalCount)
-        )
-      })
+      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
   
     onPageChanged = (pageNumber) => {
-      this.props.setPreloader(true)
-      this.props.setCurrentPage(pageNumber)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-      .then(res => {
-        this.props.setPreloader(false)
-        this.props.setUsers(res.data.items)
-      })
+      // this.props.setCurrentPage(pageNumber)
+      this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
     }
   
     render() {
@@ -49,10 +33,11 @@ class UsersContainer extends React.Component {
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
-          unfollow={this.props.unfollow}
-          follow={this.props.follow}
           onPageChanged={this.onPageChanged}
           users={this.props.users}
+          followingProgress={this.props.followingProgress}
+          unfollowThunkCreator={this.props.unfollowThunkCreator}
+          followThunkCreator={this.props.followThunkCreator}
         />
       </>
     }
@@ -64,7 +49,8 @@ let mapStateToProps = (state) => {
     pageSize: state.usersPage.pageSize,
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
-    isLoading: state.usersPage.isLoading
+    isLoading: state.usersPage.isLoading,
+    followingProgress: state.usersPage.followingProgress
   }
 }
 
@@ -93,12 +79,10 @@ let mapStateToProps = (state) => {
 //export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
 
 let mapDispatchToProps = {
-  follow, 
-  unfollow, 
-  setUsers,
   setCurrentPage, 
-  setUsersTotalCount, 
-  setPreloader
+  getUsersThunkCreator,
+  followThunkCreator,
+  unfollowThunkCreator
 }
 //упрощенная передача диспатча + сделал через константу для наглядности
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)

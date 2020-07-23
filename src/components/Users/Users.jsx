@@ -25,7 +25,7 @@ const Users = (props) => {
         })}
       </div>
       {
-        props.users.map((user) => {return (
+        props.users.map((user) => {return ( 
           <div key={user.id}>
           <span>
             <div>
@@ -34,9 +34,17 @@ const Users = (props) => {
               </NavLink>
             </div>
             <div>
-              {user.following 
-                ? <button onClick={() => {props.unfollow(user.id)}}>Unfollow</button>
-                : <button onClick={() => {props.follow(user.id)}}>Follow</button>
+              {
+              user.following 
+                ? <button 
+                    disabled={props.followingProgress.some(id => id === user.id)} 
+                    onClick={() => props.unfollowThunkCreator(user.id)}
+                  >Unfollow</button>
+
+                : <button 
+                    disabled={props.followingProgress.some(id => id === user.id)} 
+                    onClick={() => props.followThunkCreator(user.id)}
+                  >Follow</button>
               }
             </div>
           </span>
