@@ -11,6 +11,8 @@ import {
 import Users from './Users'
 
 import Preloader from "../common/Preloader/Preloader";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { compose } from "redux";
 
 
 // 2 контейнерные компоненты - одна с коннектом общая для общения со стором, 2ая для обертки Users(чтобы отделить аякс-запрос)
@@ -84,8 +86,13 @@ let mapDispatchToProps = {
   followThunkCreator,
   unfollowThunkCreator
 }
+
 //упрощенная передача диспатча + сделал через константу для наглядности
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+//упрощенная обертка в hoc
+// export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(UsersContainer))
 
-
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withAuthRedirect// вызовется 1ой, примет 
+)(UsersContainer) 
 
