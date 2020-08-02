@@ -1,8 +1,9 @@
-import { userAPI } from "../api/api"
+import { profileAPI } from "../api/api"
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_STATUS = 'SET-STATUS'
+const UPDATE_STATUS = 'UPDATE-STATUS'
 
 //state для инициализации, чтобы у редьюсера были данные
 let initialState = {
@@ -10,8 +11,8 @@ let initialState = {
     { id: 1, text: "Yo", likesCount: 2 },
     { id: 2, text: "Yo", likesCount: 1 },
   ],
-  newPostText: '',
-  profile: null
+  profile: null,
+  status: ''
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -21,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
     case ADD_POST: {
       let newPost = {
         id: 5,
-        text: state.newPostText,
+        text: action.newPostText,
         likesCount: 12,
       }
        //делаем глубокое копирование, т.к. мы изменяем массив postData
@@ -29,22 +30,28 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         postsData: [...state.postsData, newPost],
-        newPostText: ''
       }
     }
-    
-    case UPDATE_NEW_POST_TEXT: {
-      //не делаем глубокое копирование, т.к. мы изменяем только примитив(строку), массивы и т.д. не трогаем, поэтому нет необходимости
-      return {
-        ...state,
-        newPostText: action.newText
-      }
-    }  
 
     case SET_USER_PROFILE: {
       return {
         ...state,
         profile: action.profile
+      }
+    } 
+
+    case SET_STATUS: {
+      return {
+        ...state,
+        status: action.status,
+        newPostText: ''
+      }
+    } 
+
+    case UPDATE_STATUS: {
+      return {
+        ...state,
+        status: action.newStatus
       }
     } 
 
@@ -54,13 +61,9 @@ const profileReducer = (state = initialState, action) => {
 }
 
 // action creators
-export const addPostActionCreator = () => ({
-  type: ADD_POST
-})
-
-export const updateNewPostTextActionCreator = (text) => ({
-  type: UPDATE_NEW_POST_TEXT, 
-  newText: text
+export const addPostActionCreator = (newPostText) => ({
+  type: ADD_POST,
+  newPostText
 })
 
 export const setUserProfile = (profile) => ({
@@ -68,15 +71,40 @@ export const setUserProfile = (profile) => ({
   profile
 })
 
-export const getProfileInfoThunkCreator = (userId) => { 
-  return (dispatch) => {
-    userAPI.getProfileInfo(userId)
+export const setStatus = (status) => ({
+  type: SET_STATUS, 
+  status
+})
+
+export const getProfileInfoThunkCreator = (userId) => 
+  (dispatch) => {
+    profileAPI.getProfileInfo(userId)
       .then(res => {
         return (
          dispatch(setUserProfile(res))
       )
     })
   }
-}
+
+export const getUserStatusThunkCreator = (userId) => 
+  (dispatch) => {
+    profileAPI.getStatus(userId)
+      .then(res => {
+        return (
+         dispatch(setStatus(res))
+      )
+    })
+  }
+
+export const updateUserStatusThunkCreator = (newStatus) => 
+  (dispatch) => {
+    profileAPI.updateStatus(newStatus)
+      .then(res => {
+        if (res.resultCode === 0) {
+          dispatch(setStatus(newStatus))
+        }
+    })
+  }
+
 
 export default profileReducer

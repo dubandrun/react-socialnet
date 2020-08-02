@@ -24,11 +24,30 @@ export const userAPI = {
     return instance.delete(`follow/${userId}`).then((res) => res.data);
   },
 
+  getProfileInfo(userId) {
+    return instance.get('profile/' + userId).then((res) => res.data)
+  }
+}
+
+export const authAPI = {
+
   getAuth() {
     return instance.get('auth/me').then((res) => res.data)
-  },
+  }
+
+}
+
+export const profileAPI = {
 
   getProfileInfo(userId) {
     return instance.get('profile/' + userId).then((res) => res.data)
+  },
+
+  getStatus(userId) {
+    return instance.get('profile/status/' + userId).then((res) => res.data)
+  },
+
+  updateStatus(status) {
+    return instance.put('profile/status/', {status: status}).then((res) => res.data)
   }
 }

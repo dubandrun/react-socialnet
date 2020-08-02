@@ -10,15 +10,13 @@ import store from './redux/redux-store'
 import { Provider } from 'react-redux';
 
   ReactDOM.render(
-    <React.StrictMode>
       <Provider store={store}>
         <App 
           state={store.getState()}
           dispatch={store.dispatch.bind(store)}
           store={store}
         />
-      </Provider>
-    </React.StrictMode>,
+      </Provider>,
     document.getElementById('root')
   )
 
