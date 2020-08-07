@@ -8,7 +8,7 @@ import sidebarReducer from './sidebar-reducer';
 import usersReducer from './users-reducer'
 import authReducer from './auth-reducer';
 import {reducer as formReducer} from 'redux-form'
-
+import appReducer from './app-reducer';
 
 //ключ - стэйт, значение - редьюсер
 //так передастся нужный стэйт в редьюсер через initialState
@@ -18,7 +18,8 @@ const reducers = combineReducers({
   sidebar: sidebarReducer,
   usersPage: usersReducer,
   auth: authReducer,
-  form: formReducer // должно называться именно form, т.к. библиотека будет искать form
+  form: formReducer, // должно называться именно form, т.к. библиотека будет искать form
+  app: appReducer
 })
 
 let store = createStore(reducers, applyMiddleware(thunkMiddleWare))

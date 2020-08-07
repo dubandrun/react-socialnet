@@ -1,4 +1,5 @@
 import { authAPI } from "../api/api"
+import { stopSubmit } from "redux-form"
 
 const SET_USER_DATA = 'SET-USER-DATA'
 
@@ -18,8 +19,7 @@ const authReducer = (state = initialState, action) => {
     case SET_USER_DATA: {
       return {
         ...state,
-        ...action.data,
-        isAuth: true
+        ...action.payload
       }
     }
 
@@ -30,20 +30,38 @@ const authReducer = (state = initialState, action) => {
 
 
 // action creators
- export const setAuthUserData = (userId, login, email) => ({
+export const setAuthUserData = (userId, login, email, isAuth) => ({
   type: SET_USER_DATA,
-  data: {userId, login, email}
+  payload: {userId, login, email, isAuth}
 })
 
 
-export const getAuthThunkCreator = () => { 
-  return (dispatch) => {
-    authAPI.getAuth()
+export const getAuthThunkCreator = () => (dispatch) => {
+ return authAPI.getAuth()
     .then(res => {if (res.resultCode === 0) {
       let {id, login, email} = res.data
-      dispatch(setAuthUserData(id, login, email))
+      dispatch(setAuthUserData(id, login, email, true))
     }})
-  }
+}
+
+export const loginThunkCreator = (email, password, rememberMe) => (dispatch) => {
+  authAPI.login(email, password, rememberMe)
+    .then(res => {
+      if (res.resultCode === 0) {
+        dispatch(getAuthThunkCreator())
+      } else {
+        
+        let message = res.messages.length > 0 ? res.messages[0] : "Some error"
+        dispatch(stopSubmit('login', {_error: message}))//специальный action от redux-form, _error - общая ошибка для всех полей
+      }
+  })
+}
+
+export const logoutThunkCreator = () => (dispatch) => {
+  authAPI.logout()
+    .then(res => {if (res.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false))
+  }})
 }
 
 export default authReducer

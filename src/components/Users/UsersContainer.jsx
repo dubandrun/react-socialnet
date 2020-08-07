@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { 
   setCurrentPage,
-  getUsersThunkCreator,
+  requestUsersThunkCreator,
   unfollowThunkCreator,
   followThunkCreator
 } from '../../redux/users-reducer';
@@ -13,6 +13,7 @@ import Users from './Users'
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
 import { compose } from "redux";
+import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getLoading, getFollowingProgress } from "../../redux/user-selectors";
 
 
 // 2 контейнерные компоненты - одна с коннектом общая для общения со стором, 2ая для обертки Users(чтобы отделить аякс-запрос)
@@ -20,7 +21,7 @@ class UsersContainer extends React.Component {
   // если кроме пропсов никаких данных не приходит, конструктор создавать не обязательно с super(props), т.к. это делается автоматически
   
     componentDidMount() {
-      this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+      this.props.requestUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
   
     onPageChanged = (pageNumber) => {
@@ -45,14 +46,25 @@ class UsersContainer extends React.Component {
     }
   }
 
+// let mapStateToProps = (state) => {
+//   return {
+//     users: state.usersPage.users,
+//     pageSize: state.usersPage.pageSize,
+//     totalUsersCount: state.usersPage.totalUsersCount,
+//     currentPage: state.usersPage.currentPage,
+//     isLoading: state.usersPage.isLoading,
+//     followingProgress: state.usersPage.followingProgress
+//   }
+// }
+
 let mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    pageSize: state.usersPage.pageSize,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    currentPage: state.usersPage.currentPage,
-    isLoading: state.usersPage.isLoading,
-    followingProgress: state.usersPage.followingProgress
+    users: getUsers(state),
+    pageSize: getPageSize(state),
+    totalUsersCount: getTotalUsersCount(state),
+    currentPage: getCurrentPage(state),
+    isLoading: getLoading(state),
+    followingProgress: getFollowingProgress(state)
   }
 }
 
@@ -82,7 +94,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = {
   setCurrentPage, 
-  getUsersThunkCreator,
+  requestUsersThunkCreator,
   followThunkCreator,
   unfollowThunkCreator
 }
@@ -93,6 +105,6 @@ let mapDispatchToProps = {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withAuthRedirect// вызовется 1ой, примет 
+  // withAuthRedirect// вызовется 1ой, примет 
 )(UsersContainer) 
 

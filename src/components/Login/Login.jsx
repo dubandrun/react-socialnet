@@ -2,8 +2,13 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Input } from '../common/FormsControls/FormsControls'
 import { required, minLengthCreator, maxLengthCreator } from '../../utils/validators/validators'
+import { connect } from 'react-redux'
+import { loginThunkCreator, logoutThunkCreator } from '../../redux/auth-reducer'
+import { Redirect } from 'react-router-dom'
 
-let maxLength20 = maxLengthCreator(20)
+import styles from '../common/FormsControls/FormsControls.module.css'
+
+let maxLength30 = maxLengthCreator(30)
 let minLength2 = minLengthCreator(2)
 
 const LoginForm = (props) => {
@@ -11,14 +16,15 @@ const LoginForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field name='login' placeholder={'Login'} component={Input} validate={[required, maxLength20, minLength2]}/>
+        <Field name='email' placeholder={'Email'} component={Input} validate={[required, maxLength30, minLength2]}/>
       </div>
       <div>
-        <Field name='password' placeholder={'Password'} component={Input} validate={[required, maxLength20, minLength2]}/>
+        <Field name='password' placeholder={'Password'} type={'password'} component={Input} validate={[required, maxLength30, minLength2]}/>
       </div>
       <div>
         <Field name='rememberMe' type={'checkbox'} component={Input}/>
       </div>
+      {props.error && <div className={styles.formSummaryError}>{props.error}</div>}
       <div>
         <button>Login</button>
       </div>
@@ -32,13 +38,23 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
   const onSubmit = (formData) => {
-    console.log(formData)
+    props.loginThunkCreator(formData.email, formData.password, formData.rememberMe)
   }
+
+  if (props.isAuth) {
+    return <Redirect to={'/profile'}/>
+  }
+
   return <div>
     <h3>Login</h3>
     <LoginReduxForm onSubmit={onSubmit}/>
   </div>
 }
 
+const mapStateToProps = (state) => {
+  return {
+    isAuth: state.auth.isAuth
+  }
+}
 
-export default Login
+export default connect(mapStateToProps, {loginThunkCreator, logoutThunkCreator})(Login)

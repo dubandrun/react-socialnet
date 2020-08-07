@@ -125,7 +125,7 @@ export const toggleFollowingProgress = (toggle, userId) => ({
 
 //thunk
 
-export const getUsersThunkCreator = (currentPage, pageSize) => { 
+export const requestUsersThunkCreator = (currentPage, pageSize) => { 
   return (dispatch) => {
     dispatch(setCurrentPage(currentPage))
     dispatch(setPreloader(true))
