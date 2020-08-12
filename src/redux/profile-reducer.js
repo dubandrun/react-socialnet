@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_STATUS = 'SET-STATUS'
 const UPDATE_STATUS = 'UPDATE-STATUS'
+const DELETE_POST = 'DELETE-POST'
 
 //state для инициализации, чтобы у редьюсера были данные
 let initialState = {
@@ -55,6 +56,13 @@ const profileReducer = (state = initialState, action) => {
       }
     } 
 
+    case DELETE_POST: {
+      return {
+        ...state, 
+        postsData: state.postsData.filter(p => p.id !== action.postId)
+      }
+    }
+
     default:
       return state
   }
@@ -74,6 +82,11 @@ export const setUserProfile = (profile) => ({
 export const setStatus = (status) => ({
   type: SET_STATUS, 
   status
+})
+
+export const deletePost = (postId) => ({
+  type: DELETE_POST, 
+  postId
 })
 
 export const getProfileInfoThunkCreator = (userId) => 
