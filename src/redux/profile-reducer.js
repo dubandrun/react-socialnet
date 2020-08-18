@@ -89,34 +89,21 @@ export const deletePost = (postId) => ({
   postId
 })
 
-export const getProfileInfoThunkCreator = (userId) => 
-  (dispatch) => {
-    profileAPI.getProfileInfo(userId)
-      .then(res => {
-        return (
-         dispatch(setUserProfile(res))
-      )
-    })
+export const getProfileInfoThunkCreator = (userId) => async (dispatch) => {
+    const res = await profileAPI.getProfileInfo(userId)
+    dispatch(setUserProfile(res))
   }
 
-export const getUserStatusThunkCreator = (userId) => 
-  (dispatch) => {
-    profileAPI.getStatus(userId)
-      .then(res => {
-        return (
-         dispatch(setStatus(res))
-      )
-    })
+export const getUserStatusThunkCreator = (userId) => async (dispatch) => {
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setStatus(res))
   }
 
-export const updateUserStatusThunkCreator = (newStatus) => 
-  (dispatch) => {
-    profileAPI.updateStatus(newStatus)
-      .then(res => {
-        if (res.resultCode === 0) {
-          dispatch(setStatus(newStatus))
-        }
-    })
+export const updateUserStatusThunkCreator = (newStatus) => async (dispatch) => {
+    const res = await profileAPI.updateStatus(newStatus)
+    if (res.resultCode === 0) {
+      dispatch(setStatus(newStatus))
+    }
   }
 
 

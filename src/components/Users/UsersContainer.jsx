@@ -21,11 +21,13 @@ class UsersContainer extends React.Component {
   // если кроме пропсов никаких данных не приходит, конструктор создавать не обязательно с super(props), т.к. это делается автоматически
   
     componentDidMount() {
-      this.props.requestUsersThunkCreator(this.props.currentPage, this.props.pageSize)
+      const {currentPage, pageSize} = this.props
+      this.props.requestUsersThunkCreator(currentPage, pageSize)
     }
   
     onPageChanged = (pageNumber) => {
-      this.props.requestUsersThunkCreator(pageNumber, this.props.pageSize)
+      const {pageSize} = this.props
+      this.props.requestUsersThunkCreator(pageNumber, pageSize)
     }
   
     render() {

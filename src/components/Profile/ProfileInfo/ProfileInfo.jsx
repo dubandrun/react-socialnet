@@ -4,15 +4,15 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({profile, status, updateUserStatusThunkCreator}) => {
+  if (!profile) {
     return <Preloader />
   }
   return (
     <div>
       <div className={classes.descriptionBlock}>
-        <img src={props.profile.photos.large} alt="profile-avatar"/>
-        <ProfileStatus status={props.status} updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}/>
+        <img src={profile.photos.large} alt="profile-avatar"/>
+        <ProfileStatus status={status} updateUserStatusThunkCreator={updateUserStatusThunkCreator}/>
       </div>
     </div>
   )
