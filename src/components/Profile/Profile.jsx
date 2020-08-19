@@ -8,7 +8,13 @@ const Profile = (props) => {
 
   return (
     <main className={classes.content}>
-        <ProfileInfo profile={props.profile} status={props.status} updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}/>
+        <ProfileInfo 
+          profile={props.profile} 
+          status={props.status} 
+          updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}
+          isOwner={props.isOwner}
+          saveAvatarThunkCreator={props.saveAvatarThunkCreator}
+        />
         <PostsContainer store={props.store} />
     </main>
   )

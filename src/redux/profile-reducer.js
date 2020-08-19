@@ -5,6 +5,7 @@ const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_STATUS = 'SET-STATUS'
 const UPDATE_STATUS = 'UPDATE-STATUS'
 const DELETE_POST = 'DELETE-POST'
+const SAVE_PHOTO_SUCCESS = 'SAVE-PHOTO-SUCCESS'
 
 //state для инициализации, чтобы у редьюсера были данные
 let initialState = {
@@ -63,6 +64,13 @@ const profileReducer = (state = initialState, action) => {
       }
     }
 
+    case SAVE_PHOTO_SUCCESS: {
+      return {
+        ...state, 
+        profile: {...state.profile, photos: action.photos}
+      }
+    }
+
     default:
       return state
   }
@@ -89,6 +97,11 @@ export const deletePost = (postId) => ({
   postId
 })
 
+export const setAvatarSuccess = (photos) => ({
+  type: SAVE_PHOTO_SUCCESS, 
+  photos
+})
+
 export const getProfileInfoThunkCreator = (userId) => async (dispatch) => {
     const res = await profileAPI.getProfileInfo(userId)
     dispatch(setUserProfile(res))
@@ -106,5 +119,11 @@ export const updateUserStatusThunkCreator = (newStatus) => async (dispatch) => {
     }
   }
 
+export const saveAvatarThunkCreator = (photos) => async (dispatch) => {
+  const res = await profileAPI.saveAvatar(photos)
+  if (res.resultCode === 0) {
+    dispatch(setAvatarSuccess(res.data.photos))
+  }
+}
 
 export default profileReducer

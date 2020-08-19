@@ -5,3 +5,7 @@
 .backPic {
   width: 400px;
 }
+
+.mainPhoto {
+  max-width: 200px;
+}

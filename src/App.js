@@ -1,19 +1,14 @@
 import React, { Suspense } from 'react';
 import { connect, Provider } from 'react-redux';
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, HashRouter } from 'react-router-dom';
 import store from './redux/redux-store'
 
 import { initializeApp } from './redux/app-reducer';
 
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar';
-// import UsersContainer from './components/Users/UsersContainer'
-// import Login from './components/Login/Login';
-// import ProfileContainer from './components/Profile/ProfileContainer';
-// import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Preloader from './components/common/Preloader/Preloader';
 import './App.css';
-
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
@@ -51,11 +46,13 @@ const mapStateToProps = (state) => ({
 const AppContainer = connect(mapStateToProps, {initializeApp})(App)
 const SocialJSApp = (props) => {
   return (
-    <BrowserRouter>
+    // <HashRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Provider store={store}>
         <AppContainer />
       </Provider>
     </BrowserRouter>
+    // </HashRouter>
   )
 }
 
