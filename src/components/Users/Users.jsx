@@ -3,12 +3,12 @@ import React from 'react'
 import User from './User'
 import Pagination from '../common/Pagination/Pagination';
 
-const Users = ({totalUsersCount, pageSize, currentPage, onPageChanged, users, ...props}) => {
+const Users = ({totalItemsCount, pageSize, currentPage, onPageChanged, users, ...props}) => {
   return (
     <div>
       
       <Pagination 
-        totalUsersCount={totalUsersCount}
+        totalItemsCount={totalItemsCount}
         pageSize={pageSize}
         currentPage={currentPage} 
         onPageChanged={onPageChanged}

@@ -48,7 +48,7 @@ const ProfileStatus = (props) => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ProfileStatus;
+export default ProfileStatus
