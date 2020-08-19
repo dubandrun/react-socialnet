@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { connect, Provider } from 'react-redux';
 import { Route, BrowserRouter } from 'react-router-dom';
 import store from './redux/redux-store'
@@ -7,14 +7,18 @@ import { initializeApp } from './redux/app-reducer';
 
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar';
-import UsersContainer from './components/Users/UsersContainer'
-import ProfileContainer from './components/Profile/ProfileContainer';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import Login from './components/Login/Login';
+// import UsersContainer from './components/Users/UsersContainer'
+// import Login from './components/Login/Login';
+// import ProfileContainer from './components/Profile/ProfileContainer';
+// import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Preloader from './components/common/Preloader/Preloader';
-
 import './App.css';
 
+
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const UsersContainer = React.lazy(() => import('./components/Users/UsersContainer'))
+const Login = React.lazy(() => import('./components/Login/Login'))
 
 class App extends React.Component {
   componentDidMount() {
@@ -28,10 +32,12 @@ class App extends React.Component {
           <HeaderContainer />
           <Navbar />
           <div className='app-wrapper-content'>
-            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-            <Route path='/profile/:userId?' render={() => <ProfileContainer />}/>
-            <Route path='/users' render={() => <UsersContainer />}/>
-            <Route path='/login' render={() => <Login />}/>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+              <Route path='/profile/:userId?' render={() => <ProfileContainer />}/>
+              <Route path='/users' render={() => <UsersContainer />}/>
+              <Route path='/login' render={() => <Login />}/>
+            </Suspense>
           </div>
         </div>
     )
