@@ -52,7 +52,7 @@ export const profileAPI = {
   },
 
   getStatus(userId) {
-    return instance.get(' ' + userId).then((res) => res.data)
+    return instance.get('profile/status/' + userId).then((res) => res.data)
   },
 
   updateStatus(status) {
@@ -81,3 +81,4 @@ export const securityAPI = {
   }
 
 }
+

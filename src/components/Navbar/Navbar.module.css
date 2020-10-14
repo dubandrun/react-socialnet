@@ -17,11 +17,12 @@
 .menuLink {
   margin: 0;
   text-decoration: none;
-}
-
-.menuLink:visited {
   color: white;
 }
+
+/* .menuLink:visited {
+  color: white;
+} */
 
 .menuLink.activeLink {
   color: gold;

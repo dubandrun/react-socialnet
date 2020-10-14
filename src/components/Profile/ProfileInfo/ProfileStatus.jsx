@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 // import Preloader from '../../common/Preloader/Preloader';
 
 const ProfileStatus = (props) => {
-
   // let stateWithSetState = useState(false)
   // let editMode = stateWithSetState[0]
   // let setEditMode = stateWithSetState[1]
