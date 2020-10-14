@@ -40,14 +40,14 @@ const usersReducer = (state = initialState, action) => {
     case FOLLOW: {
       return {
         ...state,
-        users: updateObjectInArray(state.users, action.userId, 'id', {following: true})
+        users: updateObjectInArray(state.users, action.userId, 'id', {followed: true})
       }
     }
     
     case UNFOLLOW: {
       return {
         ...state,
-        users: updateObjectInArray(state.users, action.userId, 'id', {following: false})
+        users: updateObjectInArray(state.users, action.userId, 'id', {followed: false})
       }
     }  
 

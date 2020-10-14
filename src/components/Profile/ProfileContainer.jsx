@@ -8,7 +8,8 @@ import {
   getProfileInfoThunkCreator,
   getUserStatusThunkCreator,
   updateUserStatusThunkCreator,
-  saveAvatarThunkCreator
+  saveAvatarThunkCreator,
+  saveProfileThunkCreator
 } from '../../redux/profile-reducer'
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
 import { compose } from 'redux'
@@ -74,7 +75,8 @@ export default compose(
     getProfileInfoThunkCreator, 
     getUserStatusThunkCreator, 
     updateUserStatusThunkCreator,
-    saveAvatarThunkCreator
+    saveAvatarThunkCreator,
+    saveProfileThunkCreator
   }),//3
   withRouter,//2
   withAuthRedirect//1 Обертка

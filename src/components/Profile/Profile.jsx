@@ -11,6 +11,7 @@ const Profile = (props) => {
         <ProfileInfo 
           profile={props.profile} 
           status={props.status} 
+          saveProfileThunkCreator={props.saveProfileThunkCreator}
           updateUserStatusThunkCreator={props.updateUserStatusThunkCreator}
           isOwner={props.isOwner}
           saveAvatarThunkCreator={props.saveAvatarThunkCreator}

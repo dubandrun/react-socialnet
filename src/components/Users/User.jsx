@@ -6,6 +6,7 @@ import styles from './Users.module.css'
 import userPhoto from '../../assets/images/avatar.jpg'
 
 const Users = ({user, followingProgress, unfollowThunkCreator, followThunkCreator}) => {
+
   return (
     <div>
       <span>
@@ -16,7 +17,7 @@ const Users = ({user, followingProgress, unfollowThunkCreator, followThunkCreato
         </div>
         <div>
           {
-          user.following 
+          user.followed
             ? <button 
                 disabled={followingProgress.some(id => id === user.id)} 
                 onClick={() => unfollowThunkCreator(user.id)}

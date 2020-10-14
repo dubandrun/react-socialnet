@@ -35,8 +35,8 @@ export const authAPI = {
     return instance.get('auth/me').then((res) => res.data)
   },
 
-  login(email, password, rememberMe = false) {
-    return instance.post('auth/login', {email, password, rememberMe}).then((res) => res.data)
+  login(email, password, rememberMe = false, captcha = null) {
+    return instance.post('auth/login', {email, password, rememberMe, captcha}).then((res) => res.data)
   },
 
   logout() {
@@ -52,7 +52,7 @@ export const profileAPI = {
   },
 
   getStatus(userId) {
-    return instance.get('profile/status/' + userId).then((res) => res.data)
+    return instance.get(' ' + userId).then((res) => res.data)
   },
 
   updateStatus(status) {
@@ -67,5 +67,17 @@ export const profileAPI = {
         'Content-Type': 'multipart/form-data'
       }
     }).then((res) => res.data)
+  },
+
+  saveProfile(profile) {
+    return instance.put('profile', profile).then((res) => res.data)
   }
+}
+
+export const securityAPI = {
+
+  getCaptchaUrl() {
+    return instance.get('security/get-captcha-url').then((res) => res.data)
+  }
+
 }
