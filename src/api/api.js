@@ -42,7 +42,6 @@ export const authAPI = {
   logout() {
     return instance.delete('auth/login').then((res) => res.data)
   }
-
 }
 
 export const profileAPI = {
@@ -62,6 +61,7 @@ export const profileAPI = {
   saveAvatar(photos) {
     const formData = new FormData()
     formData.append('image', photos)
+    
     return instance.put('profile/photo/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -75,10 +75,8 @@ export const profileAPI = {
 }
 
 export const securityAPI = {
-
   getCaptchaUrl() {
     return instance.get('security/get-captcha-url').then((res) => res.data)
   }
-
 }
 

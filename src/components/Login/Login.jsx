@@ -1,15 +1,17 @@
 import React from 'react'
 import { reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+
+import { loginThunkCreator, logoutThunkCreator } from '../../redux/auth-reducer'
+
 import { Input, createField } from '../common/FormsControls/FormsControls'
 import { required, minLengthCreator, maxLengthCreator } from '../../utils/validators/validators'
-import { connect } from 'react-redux'
-import { loginThunkCreator, logoutThunkCreator } from '../../redux/auth-reducer'
-import { Redirect } from 'react-router-dom'
 
 import styles from '../common/FormsControls/FormsControls.module.css'
 
-let maxLength30 = maxLengthCreator(30)
-let minLength2 = minLengthCreator(2)
+const maxLength30 = maxLengthCreator(30)
+const minLength2 = minLengthCreator(2)
 
 const LoginForm = (props) => {
   return (
@@ -34,7 +36,6 @@ const LoginReduxForm = reduxForm({
 })(LoginForm)
 
 const Login = (props) => {
-  console.log(props)
   const onSubmit = (formData) => {
     props.loginThunkCreator(formData.email, formData.password, formData.rememberMe, formData.captcha)
   }

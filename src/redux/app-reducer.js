@@ -30,7 +30,6 @@ export const initialized = () => ({
   type: SET_INITIALIZED
 })
 
-
 export const initializeApp = () => (dispatch) => {
   let promise = dispatch(getAuthThunkCreator())
   promise.then(() => {

@@ -1,39 +1,44 @@
 import React from "react";
-import { connect } from 'react-redux'
+import { connect } from "react-redux";
+import { compose } from "redux";
 
-import { 
+import {
   setCurrentPage,
   requestUsersThunkCreator,
   unfollowThunkCreator,
-  followThunkCreator
-} from '../../redux/users-reducer';
+  followThunkCreator,
+} from "../../redux/users-reducer";
+import {
+  getUsers,
+  getPageSize,
+  getTotalUsersCount,
+  getCurrentPage,
+  getLoading,
+  getFollowingProgress,
+} from "../../redux/user-selectors";
 
-import Users from './Users'
-
+import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
-import { getUsers, getPageSize, getTotalUsersCount, getCurrentPage, getLoading, getFollowingProgress } from "../../redux/user-selectors";
-
 
 // 2 контейнерные компоненты - одна с коннектом общая для общения со стором, 2ая для обертки Users(чтобы отделить аякс-запрос)
 class UsersContainer extends React.Component {
   // если кроме пропсов никаких данных не приходит, конструктор создавать не обязательно с super(props), т.к. это делается автоматически
-  
-    componentDidMount() {
-      const {currentPage, pageSize} = this.props
-      this.props.requestUsersThunkCreator(currentPage, pageSize)
-    }
-  
-    onPageChanged = (pageNumber) => {
-      const {pageSize} = this.props
-      this.props.requestUsersThunkCreator(pageNumber, pageSize)
-    }
-  
-    render() {
-      return <>
+  componentDidMount() {
+    const { currentPage, pageSize } = this.props;
+    this.props.requestUsersThunkCreator(currentPage, pageSize);
+  }
+
+  onPageChanged = (pageNumber) => {
+    const { pageSize } = this.props;
+    this.props.requestUsersThunkCreator(pageNumber, pageSize);
+  };
+
+  render() {
+    return (
+      <>
         {this.props.isLoading ? <Preloader /> : null}
-        <Users 
+        <Users
           totalItemsCount={this.props.totalItemsCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
@@ -44,8 +49,9 @@ class UsersContainer extends React.Component {
           followThunkCreator={this.props.followThunkCreator}
         />
       </>
-    }
+    );
   }
+}
 
 // let mapStateToProps = (state) => {
 //   return {
@@ -58,16 +64,16 @@ class UsersContainer extends React.Component {
 //   }
 // }
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
     totalItemsCount: getTotalUsersCount(state),
     currentPage: getCurrentPage(state),
     isLoading: getLoading(state),
-    followingProgress: getFollowingProgress(state)
-  }
-}
+    followingProgress: getFollowingProgress(state),
+  };
+};
 
 // let mapDispatchToProps = (dispatch) => {
 //   return {
@@ -93,19 +99,18 @@ let mapStateToProps = (state) => {
 // }
 //export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
 
-let mapDispatchToProps = {
-  setCurrentPage, 
+const mapDispatchToProps = {
+  setCurrentPage,
   requestUsersThunkCreator,
   followThunkCreator,
-  unfollowThunkCreator
-}
+  unfollowThunkCreator,
+};
 
 //упрощенная передача диспатча + сделал через константу для наглядности
 //упрощенная обертка в hoc
 // export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(UsersContainer))
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  // withAuthRedirect// вызовется 1ой, примет 
-)(UsersContainer) 
-
+  connect(mapStateToProps, mapDispatchToProps)
+  // withAuthRedirect// вызовется 1ой, примет
+)(UsersContainer);

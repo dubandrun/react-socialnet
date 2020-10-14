@@ -13,7 +13,7 @@ export const getPageSize = createSelector(getPageSizeSelector, (pageSize) => {re
 const getTotalUsersCountSelector = (state) => {
   return state.usersPage.totalItemsCount
 }
-export const getTotalUsersCount = createSelector(getTotalUsersCountSelector, (totalUsersCount) => totalUsersCount)
+export const getTotalUsersCount = createSelector(getTotalUsersCountSelector, (totalItemsCount) => totalItemsCount)
 
 const getCurrentPageSelector = (state) => {
   return state.usersPage.currentPage

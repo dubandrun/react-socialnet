@@ -8,6 +8,7 @@ import { initializeApp } from './redux/app-reducer';
 import HeaderContainer from './components/Header/HeaderContainer'
 import Navbar from './components/Navbar/Navbar';
 import Preloader from './components/common/Preloader/Preloader';
+
 import './App.css';
 
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))

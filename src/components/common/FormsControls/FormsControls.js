@@ -1,9 +1,9 @@
 import React from 'react'
 import { Field } from 'redux-form'
+
 import styles from './FormsControls.module.css'
 
 export const FormControl = ({input, meta: {touched, error}, children}) => {
-
   const hasError = touched && error
 
   return (

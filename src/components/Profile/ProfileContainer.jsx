@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
@@ -11,11 +11,10 @@ import {
   saveAvatarThunkCreator,
   saveProfileThunkCreator
 } from '../../redux/profile-reducer'
+
 import { withAuthRedirect } from '../../hoc/withAuthRedirect'
-import { compose } from 'redux'
 
 class ProfileContainer extends React.Component {
-
   refreshProfile() {
     let userId = this.props.match.params.userId
     //my id 9293
@@ -57,7 +56,7 @@ class ProfileContainer extends React.Component {
 
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
 
-let mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
     status: state.profilePage.status,

@@ -44,7 +44,7 @@ const dialogsReducer = (state = initialState, action) => {
       return {
         ...state,
         //добавление объекта через запятую будет эквивалентно .push({ id: 6, text: body }
-        messagesData: [...state.messagesData, { id: 6, text: body }]
+        messagesData: [...state.messagesData, {id: 6, text: body}]
       }
     }
 

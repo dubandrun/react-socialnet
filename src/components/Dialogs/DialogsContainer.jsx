@@ -1,18 +1,20 @@
 // import React from "react";
-import { connect } from "react-redux";
+import { connect } from "react-redux"
+import { compose } from "redux"
 
-import { sendMessageCreator } from "../../redux/dialogs-reducer";
+import { sendMessageCreator } from "../../redux/dialogs-reducer"
+
 import Dialogs from './Dialogs'
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
-import { compose } from "redux";
+import { withAuthRedirect } from "../../hoc/withAuthRedirect"
 
-let mapStateToProps = (state) => {
+
+const mapStateToProps = (state) => {
   return {
     dialogsPage: state.dialogsPage
   }
 }
 
-let mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     sendMessage: (newMessageBody) => {
     dispatch(sendMessageCreator(newMessageBody))

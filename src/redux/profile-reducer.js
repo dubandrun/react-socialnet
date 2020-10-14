@@ -104,42 +104,68 @@ export const setAvatarSuccess = (photos) => ({
 })
 
 export const getProfileInfoThunkCreator = (userId) => async (dispatch) => {
-  const res = await profileAPI.getProfileInfo(userId)
-  dispatch(setUserProfile(res))
+
+  try {
+    const res = await profileAPI.getProfileInfo(userId)
+    dispatch(setUserProfile(res))
+  }
+  catch(error) {
+    console.log(error)
+  }
 }
 
 export const getUserStatusThunkCreator = (userId) => async (dispatch) => {
-  const res = await profileAPI.getStatus(userId)
-  dispatch(setStatus(res))
+
+  try {
+    const res = await profileAPI.getStatus(userId)
+    dispatch(setStatus(res))
+  }
+  catch(error) {
+    console.log(error)
+  }
 }
 
 export const updateUserStatusThunkCreator = (newStatus) => async (dispatch) => {
+
   try {
     const res = await profileAPI.updateStatus(newStatus)
     if (res.resultCode === 0) {
       dispatch(setStatus(newStatus))
-  }} catch(error) {
+    }
+  } 
+  catch(error) {
     console.log(error)
   }
 }
 
 export const saveAvatarThunkCreator = (photos) => async (dispatch) => {
-  const res = await profileAPI.saveAvatar(photos)
-  if (res.resultCode === 0) {
-    dispatch(setAvatarSuccess(res.data.photos))
+
+  try {
+    const res = await profileAPI.saveAvatar(photos)
+    if (res.resultCode === 0) {
+      dispatch(setAvatarSuccess(res.data.photos))
+    }
+  }
+  catch(error) {
+    console.log(error)
   }
 }
 
 export const saveProfileThunkCreator = (formData) => async (dispatch, getState) => {
-  const userId = getState().auth.userId
-  const res = await profileAPI.saveProfile(formData)
-  if (res.resultCode === 0) {
-    debugger
-    dispatch(getProfileInfoThunkCreator(userId))
-  } else {
-    debugger
-    dispatch(stopSubmit('contacts', {_error: res.messages[0]}))
-    return Promise.reject(res.messages[0])
+
+  try {
+    const userId = getState().auth.userId
+    const res = await profileAPI.saveProfile(formData)
+    if (res.resultCode === 0) {
+      debugger
+      dispatch(getProfileInfoThunkCreator(userId))
+    } else {
+      dispatch(stopSubmit('contacts', {_error: res.messages[0]}))
+      return Promise.reject(res.messages[0])
+    }
+  }
+  catch(error) {
+    console.log(error)
   }
 }
 

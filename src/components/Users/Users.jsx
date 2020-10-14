@@ -5,15 +5,13 @@ import Pagination from '../common/Pagination/Pagination';
 
 const Users = ({totalItemsCount, pageSize, currentPage, onPageChanged, users, ...props}) => {
   return (
-    <div>
-      
+    <div> 
       <Pagination 
         totalItemsCount={totalItemsCount}
         pageSize={pageSize}
         currentPage={currentPage} 
         onPageChanged={onPageChanged}
       />
-
       <div>
         { 
           users.map((user) => <User 
@@ -25,7 +23,6 @@ const Users = ({totalItemsCount, pageSize, currentPage, onPageChanged, users, ..
           />)
         } 
       </div>
-
     </div>
   )
 }

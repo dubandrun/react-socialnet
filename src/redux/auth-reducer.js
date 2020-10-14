@@ -1,9 +1,10 @@
-import { authAPI, securityAPI } from "../api/api"
 import { stopSubmit } from "redux-form"
+
+import { authAPI, securityAPI } from "../api/api"
+
 //создание уникальных actions по концепции react-ducks
 const SET_USER_DATA = 'react-network/auth/SET-USER-DATA'
 const GET_CAPTCHA_URL_SUCCESS = 'GET-CAPTCHA-URL-SUCCESS'
-
 
 //state для инициализации, чтобы у редьюсера были данные
 let initialState = {
@@ -45,15 +46,23 @@ export const getCaptchaUrlSuccess = (captchaUrl) => ({
 
 
 export const getAuthThunkCreator = () => async (dispatch) => {
-  const res = await authAPI.getAuth()
-  if (res.resultCode === 0) {
+  
+  try {
+    const res = await authAPI.getAuth()
+    if (res.resultCode === 0) {
       let {id, login, email} = res.data
       dispatch(setAuthUserData(id, login, email, true))
+    }
+  }
+  catch(error) {
+    console.log(error)
   }
 }
 
 export const loginThunkCreator = (email, password, rememberMe, captcha) => async (dispatch) => {
-  const res = await authAPI.login(email, password, rememberMe, captcha)
+
+  try {
+    const res = await authAPI.login(email, password, rememberMe, captcha)
     if (res.resultCode === 0) {
       dispatch(getAuthThunkCreator())
     } else {
@@ -64,19 +73,35 @@ export const loginThunkCreator = (email, password, rememberMe, captcha) => async
       let message = res.messages.length > 0 ? res.messages[0] : "Some error"
       dispatch(stopSubmit('login', {_error: message}))//специальный action от redux-form, _error - общая ошибка для всех полей
     }
+  }
+  catch(error) {
+    console.log(error)
+  }
 }
 
 export const logoutThunkCreator = () => async (dispatch) => {
-  const res = await authAPI.logout()
-  if (res.resultCode === 0) {
-    dispatch(setAuthUserData(null, null, null, false))
+
+  try {
+    const res = await authAPI.logout()
+    if (res.resultCode === 0) {
+      dispatch(setAuthUserData(null, null, null, false))
+    }
+  }
+  catch(error) {
+    console.log(error)
   }
 }
 
 export const getCaptchaUrlThunkCreator = () => async (dispatch) => {
-  const res = await securityAPI.getCaptchaUrl()
-  const captchaUrl = res.url
-  dispatch(getCaptchaUrlSuccess(captchaUrl))
+
+  try {
+    const res = await securityAPI.getCaptchaUrl()
+    const captchaUrl = res.url
+    dispatch(getCaptchaUrlSuccess(captchaUrl))
+  }
+  catch(error) {
+    console.log(error)
+  }
 }
 
 export default authReducer
