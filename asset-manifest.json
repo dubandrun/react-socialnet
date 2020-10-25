@@ -2,7 +2,7 @@
   "files": {
     "static/js/0.79e30e50.chunk.js": "/react-socialnet/static/js/0.79e30e50.chunk.js",
     "static/js/0.79e30e50.chunk.js.map": "/react-socialnet/static/js/0.79e30e50.chunk.js.map",
-    "main.css": "/react-socialnet/static/css/main.5622a9da.chunk.css",
+    "main.css": "/react-socialnet/static/css/main.fe2986f8.chunk.css",
     "main.js": "/react-socialnet/static/js/main.33492d60.chunk.js",
     "main.js.map": "/react-socialnet/static/js/main.33492d60.chunk.js.map",
     "runtime-main.js": "/react-socialnet/static/js/runtime-main.c21da62e.js",
@@ -22,13 +22,13 @@
     "static/js/7.88ab92a7.chunk.js": "/react-socialnet/static/js/7.88ab92a7.chunk.js",
     "static/js/7.88ab92a7.chunk.js.map": "/react-socialnet/static/js/7.88ab92a7.chunk.js.map",
     "index.html": "/react-socialnet/index.html",
-    "precache-manifest.4bce163a1115385afd92bb6745d476ad.js": "/react-socialnet/precache-manifest.4bce163a1115385afd92bb6745d476ad.js",
+    "precache-manifest.510cdcf60e51eb9ec46daa6cf710a583.js": "/react-socialnet/precache-manifest.510cdcf60e51eb9ec46daa6cf710a583.js",
     "service-worker.js": "/react-socialnet/service-worker.js",
     "static/css/4.b7869109.chunk.css.map": "/react-socialnet/static/css/4.b7869109.chunk.css.map",
     "static/css/5.14c77941.chunk.css.map": "/react-socialnet/static/css/5.14c77941.chunk.css.map",
     "static/css/6.333e00f0.chunk.css.map": "/react-socialnet/static/css/6.333e00f0.chunk.css.map",
     "static/css/7.649c1d3c.chunk.css.map": "/react-socialnet/static/css/7.649c1d3c.chunk.css.map",
-    "static/css/main.5622a9da.chunk.css.map": "/react-socialnet/static/css/main.5622a9da.chunk.css.map",
+    "static/css/main.fe2986f8.chunk.css.map": "/react-socialnet/static/css/main.fe2986f8.chunk.css.map",
     "static/js/3.98748a72.chunk.js.LICENSE.txt": "/react-socialnet/static/js/3.98748a72.chunk.js.LICENSE.txt",
     "static/js/5.207b6701.chunk.js.LICENSE.txt": "/react-socialnet/static/js/5.207b6701.chunk.js.LICENSE.txt",
     "static/media/avatar.jpg": "/react-socialnet/static/media/avatar.04d7a14c.jpg"
@@ -36,7 +36,7 @@
   "entrypoints": [
     "static/js/runtime-main.c21da62e.js",
     "static/js/3.98748a72.chunk.js",
-    "static/css/main.5622a9da.chunk.css",
+    "static/css/main.fe2986f8.chunk.css",
     "static/js/main.33492d60.chunk.js"
   ]
 }
