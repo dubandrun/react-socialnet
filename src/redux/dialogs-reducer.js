@@ -6,25 +6,25 @@ let initialState = {
       id: 1,
       name: "Петя",
       avatar:
-        "https://i.pinimg.com/736x/a0/66/3a/a0663ad917c9446ad219aea51670d100.jpg",
+        "https://img2.freepng.ru/20180523/tha/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc6a3a10.0013931115270566044351.jpg",
     },
     {
       id: 2,
       name: "Марина",
       avatar:
-        "https://i.pinimg.com/736x/a0/66/3a/a0663ad917c9446ad219aea51670d100.jpg",
+        "https://img2.freepng.ru/20180523/tha/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc6a3a10.0013931115270566044351.jpg",
     },
     {
       id: 3,
       name: "Света",
       avatar:
-        "https://i.pinimg.com/736x/a0/66/3a/a0663ad917c9446ad219aea51670d100.jpg",
+        "https://img2.freepng.ru/20180523/tha/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc6a3a10.0013931115270566044351.jpg",
     },
     {
       id: 4,
       name: "Валера",
       avatar:
-        "https://i.pinimg.com/736x/a0/66/3a/a0663ad917c9446ad219aea51670d100.jpg",
+        "https://img2.freepng.ru/20180523/tha/kisspng-businessperson-computer-icons-avatar-clip-art-lattice-5b0508dc6a3a10.0013931115270566044351.jpg",
     },
   ],
   messagesData: [

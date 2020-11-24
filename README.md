@@ -1,10 +1,12 @@
-
 ### "Социальная сеть" 
 <p>Проект социальной сети, созданный в процессе изучения библиотеки React.</p>
 
+#### Сайт:
+<p>https://dubandrun.github.io/react-socialnet/</p> 
+
 #### Тестовый аккаунт: 
 <p>Email: free@samuraijs.com</p>
-<p> Password: free</p>
+<p>Password: free</p>
 
 #### Текущий функционал:
 <p>1) Login\logout</p> 
@@ -15,8 +17,8 @@
 <p>4) раздел Messages: список диалогов из локального state,
 и создание новых сообщений (без загрузки на сервер)</p>  
 
-<p>Стэк: React\Redux\Thunk\JS\HTML\CSS</p> 
-<p>Ссылка на приложение: https://dubandrun.github.io/react-socialnet/</p> 
+#### Стек:
+<p>React\Redux\Thunk\JS\HTML\CSS</p> 
 
 #### Инструкция по развёртке проекта:
 <p>git clone https://github.com/dubandrun/react-socialnet.git - скопировать репозиторий</p> 
